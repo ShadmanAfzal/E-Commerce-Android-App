@@ -724,8 +724,8 @@ class _DetailPageState extends State<DetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(height:50),
-                    SvgPicture.asset(
-                      "images/Success_payment.svg",
+                    Image.asset(
+                      "images/Success_payment.png",
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
                     ),

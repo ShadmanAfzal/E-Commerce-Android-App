@@ -555,8 +555,8 @@ class _OrdersState extends State<Orders> {
                             child: Column(
                               children: [
                                 SizedBox(height: 20,),
-                                SvgPicture.asset(
-                                  "images/empty-search.svg",
+                                Image.asset(
+                                  "images/empty-search.png",
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.cover,
                                 ),

@@ -46,9 +46,8 @@ flutter:
     - images/mobile3.jpg
     - images/empty-cart.png
     - images/order.svg
-    - images/Success_payment.svg
-    - images/empty-search.svg
-
+    - images/Success_payment.png
+    - images/empty-search.png
 
 
   fonts:
