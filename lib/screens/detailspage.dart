@@ -158,9 +158,8 @@ class _DetailPageState extends State<DetailPage> {
           color: Theme.of(context).cardColor,
         ),
         elevation: 0,
-        
         title: Text(
-          !isSuccess?"Enter Shipping Details":"Payment Successful",
+          !isSuccess ? "Enter Shipping Details" : "Payment Successful",
           style: TextStyle(
             fontFamily: "MeriendaOne",
             color: Theme.of(context).cardColor,
@@ -289,7 +288,16 @@ class _DetailPageState extends State<DetailPage> {
                                 });
                               },
                               validator: (value) {
-                                if (value.length == 0) return "Enter Email";
+                                bool emailValid = RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(value.trim());
+                                if (!emailValid) {
+                                  if (email.length == 0)
+                                    return "Enter Email Id";
+                                  return "Enter valid Email Id";
+                                } else {
+                                  return null;
+                                }
                               },
                             ),
                             SizedBox(height: 10),
@@ -723,31 +731,28 @@ class _DetailPageState extends State<DetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height:50),
+                    SizedBox(height: 50),
                     Image.asset(
                       "images/Success_payment.png",
                       fit: BoxFit.cover,
                       width: MediaQuery.of(context).size.width,
                     ),
-                    SizedBox(height:40),
-
+                    SizedBox(height: 40),
                     FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7),
-                      ),
-                      color: Colors.teal.shade500,
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text("Back to HomePage",style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600
-                        )),
-                      ),
-                      onPressed: () => Navigator.of(context).pop()),
-                    
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        color: Colors.teal.shade500,
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text("Back to HomePage",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w600)),
+                        ),
+                        onPressed: () => Navigator.of(context).pop()),
                   ],
                 ),
               ),
