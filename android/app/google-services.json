@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "813402274211",
+    "firebase_url": "https://newnippon-13078.firebaseio.com",
+    "project_id": "newnippon-13078",
+    "storage_bucket": "newnippon-13078.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813402274211:android:137dd89fcb9ca387c34216",
+        "android_client_info": {
+          "package_name": "com.example.newnippon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813402274211-bgm09g7dgi7otp7l3816o94ka2e6btdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABWBXOyFVheFFdDAK1LBU637pwETFf9-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813402274211-bgm09g7dgi7otp7l3816o94ka2e6btdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
