@@ -742,7 +742,7 @@ class _DetailPageState extends State<DetailPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7),
                         ),
-                        color: Colors.teal.shade500,
+                        color: Colors.teal.shade400,
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -750,6 +750,7 @@ class _DetailPageState extends State<DetailPage> {
                           padding: const EdgeInsets.all(4.0),
                           child: Text("Back to HomePage",
                               style: TextStyle(
+                                color: Colors.white,
                                   fontSize: 20, fontWeight: FontWeight.w600)),
                         ),
                         onPressed: () => Navigator.of(context).pop()),
