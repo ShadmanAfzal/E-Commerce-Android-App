@@ -27,7 +27,6 @@ class _DashBoardState extends State<DashBoard>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
   }
@@ -47,7 +46,6 @@ class _DashBoardState extends State<DashBoard>
               textTheme: GoogleFonts.latoTextTheme(
                 Theme.of(context).textTheme,
               ),
-              
               brightness: brightness,
               backgroundColor: (brightness == Brightness.light)
                   ? Colors.white
@@ -58,7 +56,9 @@ class _DashBoardState extends State<DashBoard>
             ),
         themedWidgetBuilder: (context, theme) {
           return MaterialApp(
-              color:theme.brightness==Brightness.dark?Color(0xff424242):Colors.black,             
+              color: theme.brightness == Brightness.dark
+                  ? Color(0xff424242)
+                  : Colors.black,
               debugShowCheckedModeBanner: false,
               title: 'NewNippon',
               theme: theme,

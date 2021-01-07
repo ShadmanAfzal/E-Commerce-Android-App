@@ -27,7 +27,7 @@ class _FavouriteState extends State<Favourite> {
             style: TextStyle(
                 color: Theme.of(context).cardColor,
                 fontFamily: "MeriendaOne",
-                )),
+                fontSize: 17)),
         iconTheme: IconThemeData(
           color: Theme.of(context).cardColor,
         ),
@@ -51,9 +51,7 @@ class _FavouriteState extends State<Favourite> {
                     );
                   });
             else
-              return Container(
-                  );
-             
+              return Container();
           },
         ),
       ),

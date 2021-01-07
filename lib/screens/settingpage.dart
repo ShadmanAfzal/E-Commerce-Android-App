@@ -119,9 +119,9 @@ class _SettingPageState extends State<SettingPage> {
         title: Text(
           "Settings",
           style: TextStyle(
-            fontFamily: "MeriendaOne",
-            color: Theme.of(context).cardColor,
-          ),
+              fontFamily: "MeriendaOne",
+              color: Theme.of(context).cardColor,
+              fontSize: 17),
         ),
       ),
       body: Container(

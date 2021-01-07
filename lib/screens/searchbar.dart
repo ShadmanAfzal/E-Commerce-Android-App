@@ -35,6 +35,7 @@ class _SearchBarState extends State<SearchBar> {
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Theme.of(context).cardColor),
             onPressed: () {
+              FocusScope.of(context).unfocus();
               widget.controller.animateTo(0);
             }),
         backgroundColor: Theme.of(context).backgroundColor,
@@ -76,7 +77,9 @@ class _SearchBarState extends State<SearchBar> {
                     ? Colors.grey.shade700
                     : Colors.white70),
           ),
-          cursorColor: (Theme.of(context).brightness==Brightness.light)?Colors.black87:Colors.white,
+          cursorColor: (Theme.of(context).brightness == Brightness.light)
+              ? Colors.black87
+              : Colors.white,
           autofocus: true,
           maxLines: 1,
         ),
@@ -114,10 +117,10 @@ class _SearchBarState extends State<SearchBar> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => ProductDetails(
-                                    type: snapshot
+                                      type: snapshot
                                           .data.documents[index].data['type'],
-                                    imageurl: snapshot
-                                          .data.documents[index].data['imageurl'],
+                                      imageurl: snapshot.data.documents[index]
+                                          .data['imageurl'],
                                       id: snapshot
                                           .data.documents[index].data['id']
                                           .toString())));

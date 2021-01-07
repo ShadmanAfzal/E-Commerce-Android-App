@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Search for deals...",
                 style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 17.5,
                     fontFamily: "MeriendaOne",
                     color: Theme.of(context).cardColor),
               ),

@@ -16,7 +16,7 @@ dependencies:
   cloud_firestore: ^0.13.7 # Firebase Database Service
   firebase_auth: ^0.14.0+5 # Firbase Authentication Service
   shared_preferences: ^0.5.8 
-  carousel_slider: ^2.2.1
+  carousel_slider:
   font_awesome_flutter: ^8.8.1 # Font-Awesome icons
   flutter_svg: ^0.18.0 
   google_fonts: ^1.1.0

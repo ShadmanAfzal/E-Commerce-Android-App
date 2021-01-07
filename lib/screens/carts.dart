@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:newnippon/screens/detailspage.dart';
+import 'package:newnippon/screens/detailsPage.dart';
 import 'package:newnippon/screens/products.dart';
 import 'package:newnippon/services/authservice.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -134,6 +133,7 @@ class _CartsState extends State<Carts> {
             (cartitem != 0) ? "My Cart ($cartitem)" : "My Cart",
             style: TextStyle(
               fontFamily: "MeriendaOne",
+              fontSize: 17,
               color: Theme.of(context).cardColor,
             ),
           ),

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:newnippon/screens/detailspage.dart';
-import 'package:newnippon/services/authservice.dart';
+import 'package:newnippon/screens/detailsPage.dart';
 import 'package:newnippon/services/databaseclient.dart';
 import 'package:newnippon/services/models.dart';
 import 'package:newnippon/widgetslib.dart/productcards.dart';
@@ -226,7 +225,7 @@ class _ProductDetailsState extends State<ProductDetails>
                             child: Text("Add to Cart",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.w600))),
                         width: MediaQuery.of(context).size.width / 2,
                       ),
@@ -253,7 +252,7 @@ class _ProductDetailsState extends State<ProductDetails>
                         child: Center(
                             child: Text("Buy Now",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.white))),
                         width: (MediaQuery.of(context).size.width / 2) - 16,

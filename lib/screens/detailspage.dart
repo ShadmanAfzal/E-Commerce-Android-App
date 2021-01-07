@@ -1,12 +1,8 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:newnippon/screens/dashboard.dart';
 import 'package:newnippon/services/userinfo.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:newnippon/services/authservice.dart';
@@ -161,9 +157,9 @@ class _DetailPageState extends State<DetailPage> {
         title: Text(
           !isSuccess ? "Enter Shipping Details" : "Payment Successful",
           style: TextStyle(
-            fontFamily: "MeriendaOne",
-            color: Theme.of(context).cardColor,
-          ),
+              fontFamily: "MeriendaOne",
+              color: Theme.of(context).cardColor,
+              fontSize: 17),
         ),
       ),
       body: SingleChildScrollView(
@@ -234,7 +230,10 @@ class _DetailPageState extends State<DetailPage> {
                                 });
                               },
                               validator: (value) {
-                                if (value.length == 0) return "Enter Name";
+                                if (value.length == 0)
+                                  return "Enter Name";
+                                else
+                                  return null;
                               },
                             ),
                             SizedBox(height: 10),
@@ -350,7 +349,10 @@ class _DetailPageState extends State<DetailPage> {
                                 });
                               },
                               validator: (value) {
-                                if (value.length == 0) return "Enter Phone";
+                                if (value.length == 0)
+                                  return "Enter Phone";
+                                else
+                                  return null;
                               },
                             ),
                             SizedBox(height: 10),
@@ -407,6 +409,8 @@ class _DetailPageState extends State<DetailPage> {
                                   return "Enter Address";
                                 else if (value.length < 5)
                                   return "Enter Valid Address";
+                                else
+                                  return null;
                               },
                             ),
                             SizedBox(height: 10),
@@ -459,7 +463,10 @@ class _DetailPageState extends State<DetailPage> {
                                 });
                               },
                               validator: (value) {
-                                if (value.length == 0) return "Enter Address";
+                                if (value.length == 0)
+                                  return "Enter Address";
+                                else
+                                  return null;
                               },
                             ),
                             SizedBox(height: 10),
@@ -562,7 +569,10 @@ class _DetailPageState extends State<DetailPage> {
                                 });
                               },
                               validator: (value) {
-                                if (value.length == 0) return "Enter City";
+                                if (value.length == 0)
+                                  return "Enter City";
+                                else
+                                  return null;
                               },
                             ),
                             SizedBox(height: 10),
@@ -693,6 +703,8 @@ class _DetailPageState extends State<DetailPage> {
                                         validator: (value) {
                                           if (value.length == 0)
                                             return "Enter Pincode";
+                                          else
+                                            return null;
                                         },
                                       ),
                                     ),
@@ -750,8 +762,9 @@ class _DetailPageState extends State<DetailPage> {
                           padding: const EdgeInsets.all(4.0),
                           child: Text("Back to HomePage",
                               style: TextStyle(
-                                color: Colors.white,
-                                  fontSize: 20, fontWeight: FontWeight.w600)),
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600)),
                         ),
                         onPressed: () => Navigator.of(context).pop()),
                   ],
