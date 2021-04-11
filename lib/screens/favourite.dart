@@ -18,16 +18,22 @@ class _FavouriteState extends State<Favourite> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.red.shade700,
+            ),
             onPressed: () {
               widget.controller.animateTo(0);
             }),
         backgroundColor: Theme.of(context).backgroundColor,
-        title: Text("Favourite Products",
-            style: TextStyle(
-                color: Theme.of(context).cardColor,
-                fontFamily: "MeriendaOne",
-                fontSize: 17)),
+        title: Text(
+          "Favourite Products",
+          style: TextStyle(
+            color: Theme.of(context).cardColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         iconTheme: IconThemeData(
           color: Theme.of(context).cardColor,
         ),
@@ -40,14 +46,18 @@ class _FavouriteState extends State<Favourite> {
               return ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return ProductCard(
-                      type: snapshot.data[index].type,
-                      id: snapshot.data[index].id.toString(),
-                      imageurl: snapshot.data[index].imageurl,
-                      price: snapshot.data[index].price
-                          .toString()
-                          .replaceFirst("₹", ""),
-                      title: snapshot.data[index].title,
+                    return Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ProductCard(
+                        isFromHome: true,
+                        type: snapshot.data[index].type,
+                        id: snapshot.data[index].id.toString(),
+                        imageurl: snapshot.data[index].imageurl,
+                        price: snapshot.data[index].price
+                            .toString()
+                            .replaceFirst("₹", ""),
+                        title: snapshot.data[index].title,
+                      ),
                     );
                   });
             else

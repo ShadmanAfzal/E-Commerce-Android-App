@@ -4,11 +4,11 @@ import 'package:newnippon/services/authservice.dart';
 class CartFunction {
   addtocart(id) async {
     String uid = await AuthService().getuseruid();
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("User")
-        .document(uid)
+        .doc(uid)
         .collection("Cart")
         .add({"item_id": id});
-  return "success";
+    return "success";
   }
 }

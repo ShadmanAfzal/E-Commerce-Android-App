@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:newnippon/screens/dashboard.dart';
 import 'package:newnippon/screens/loginpage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import './userinfo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   handleAuth() {
@@ -99,21 +98,8 @@ class AuthService {
           errorMessage = "Email address already registered.";
       }
     }
-      var dict = [success, errorMessage];
-      return dict;
-  }
-
-  signInusinggoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-    bool isSignedIn = await _googleSignIn.isSignedIn();
-    if (!isSignedIn) {
-      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-      FirebaseAuth.instance.signInWithCredential(credential);
-    }
+    var dict = [success, errorMessage];
+    return dict;
   }
 
   signIn(AuthCredential authCreds) {
@@ -121,22 +107,22 @@ class AuthService {
   }
 
   Future<String> getuseruid() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     final String uid = user.uid;
     return uid;
   }
 
   Future<String> getuseremail() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     final String email = user.email;
     return email;
   }
 
   deleteAccount() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     try {
       user.delete();
-      Firestore.instance.collection('User').document(user.uid).delete();
+      FirebaseFirestore.instance.collection('User').doc(user.uid).delete();
     } catch (e) {
       print(e);
     }

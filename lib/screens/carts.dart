@@ -18,53 +18,41 @@ class _CartsState extends State<Carts> {
   bool isloading = true;
   bool hasdata = false;
   int cartitem = 0;
-  List<String> amount = List<String>();
-  List<String> imageurl = List<String>();
-  List<String> item = List<String>();
-  List<String> orderid = List<String>();
-  List<String> desc = List<String>();
+  List<String> amount = [];
+  List<String> imageurl = [];
+  List<String> item = [];
+  List<String> orderid = [];
+  List<String> desc = [];
   getuid() async {
     uid = await AuthService().getuseruid();
   }
 
-  // ignore: unused_element
-  void _showSnackBar(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(SnackBar(
-        backgroundColor: Colors.red.shade600,
-        content: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        )));
-  }
-
   checkdatabase() async {
     uid = await AuthService().getuseruid();
-    QuerySnapshot result = await Firestore.instance
+    QuerySnapshot result = await FirebaseFirestore.instance
         .collection("User")
-        .document(uid)
+        .doc(uid)
         .collection("Cart")
-        .getDocuments();
+        .get();
     setState(() {
-      cartitem = result.documents.length;
+      cartitem = result.docs.length;
       if (cartitem != 0) hasdata = true;
     });
-    for (int i = 0; i < result.documents.length; i++) {
-      orderid.add(result.documents[i].data["item_id"].toString());
+    for (int i = 0; i < result.docs.length; i++) {
+      orderid.add(result.docs[i].data()["item_id"].toString());
     }
 
-    for (int i = 0; i < result.documents.length; i++) {
-      QuerySnapshot result = await Firestore.instance
+    for (int i = 0; i < result.docs.length; i++) {
+      QuerySnapshot result = await FirebaseFirestore.instance
           .collection("Products")
-          .document('WntdoInZ8j7RQJeyMqse')
+          .doc('WntdoInZ8j7RQJeyMqse')
           .collection("Laptops")
           .where("id", isEqualTo: int.parse(orderid[i]))
-          .getDocuments();
-      amount
-          .add(result.documents[0].data["cost"].toString().replaceAll(",", ""));
-      item.add(result.documents[0].data["title"]);
-      desc.add(result.documents[0].data["type"]);
-      imageurl.add(result.documents[0].data["imageurl"]);
+          .get();
+      amount.add(result.docs[0].data()["cost"].toString().replaceAll(",", ""));
+      item.add(result.docs[0].data()["title"]);
+      desc.add(result.docs[0].data()["type"]);
+      imageurl.add(result.docs[0].data()["imageurl"]);
     }
     setState(() {
       isloading = false;
@@ -90,10 +78,7 @@ class _CartsState extends State<Carts> {
                   elevation: 3,
                   color: Colors.red.shade600,
                   borderRadius: BorderRadius.circular(10),
-                  child: FlatButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
+                  child: TextButton(
                     onPressed: () {
                       if (item.length != 0) {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -113,8 +98,8 @@ class _CartsState extends State<Carts> {
                           child: Text(
                         "Order Now",
                         style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
                           color: Colors.white,
                         ),
                       )),
@@ -132,8 +117,8 @@ class _CartsState extends State<Carts> {
           title: Text(
             (cartitem != 0) ? "My Cart ($cartitem)" : "My Cart",
             style: TextStyle(
-              fontFamily: "MeriendaOne",
-              fontSize: 17,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
               color: Theme.of(context).cardColor,
             ),
           ),
@@ -154,9 +139,9 @@ class _CartsState extends State<Carts> {
                       children: [
                         Container(
                           child: StreamBuilder<QuerySnapshot>(
-                              stream: Firestore.instance
+                              stream: FirebaseFirestore.instance
                                   .collection("User")
-                                  .document(uid)
+                                  .doc(uid)
                                   .collection("Cart")
                                   .snapshots(),
                               builder: (context, snapshot) {
@@ -166,20 +151,19 @@ class _CartsState extends State<Carts> {
                                   );
                                 } else
                                   return ListView.builder(
-                                    itemCount: snapshot.data.documents.length,
+                                    itemCount: snapshot.data.docs.length,
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemBuilder: (_, i) {
                                       return StreamBuilder<QuerySnapshot>(
-                                          stream: Firestore.instance
+                                          stream: FirebaseFirestore.instance
                                               .collection("Products")
-                                              .document('WntdoInZ8j7RQJeyMqse')
+                                              .doc('WntdoInZ8j7RQJeyMqse')
                                               .collection("Laptops")
                                               .where("id",
                                                   isEqualTo: int.parse(snapshot
-                                                      .data
-                                                      .documents[i]
-                                                      .data["item_id"]))
+                                                      .data.docs[i]
+                                                      .data()["item_id"]))
                                               .snapshots(),
                                           builder: (_, second) {
                                             if (second.data == null)
@@ -191,8 +175,8 @@ class _CartsState extends State<Carts> {
                                                 shrinkWrap: true,
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
-                                                itemCount: second
-                                                    .data.documents.length,
+                                                itemCount:
+                                                    second.data.docs.length,
                                                 itemBuilder: (_, index) {
                                                   return Stack(
                                                     children: [
@@ -209,38 +193,30 @@ class _CartsState extends State<Carts> {
                                                                     MaterialPageRoute(
                                                                         builder: (_) =>
                                                                             ProductDetails(
-                                                                              id: second.data.documents[index].data['id'].toString(),
-                                                                              imageurl: second.data.documents[index].data['imageurl'],
-                                                                              type: second.data.documents[index].data['type'],
+                                                                              id: second.data.docs[index].data()['id'].toString(),
+                                                                              imageurl: second.data.docs[index].data()['imageurl'],
+                                                                              type: second.data.docs[index].data()['type'],
                                                                             ))),
                                                             child: ProductCard(
-                                                              type: second
-                                                                  .data
-                                                                  .documents[
-                                                                      index]
-                                                                  .data['type'],
-                                                              id: second
-                                                                  .data
-                                                                  .documents[
-                                                                      index]
-                                                                  .data['id']
+                                                              type: second.data
+                                                                  .docs[index]
+                                                                  .data()['type'],
+                                                              id: second.data
+                                                                  .docs[index]
+                                                                  .data()['id']
                                                                   .toString(),
                                                               imageurl: second
                                                                       .data
-                                                                      .documents[
-                                                                          index]
-                                                                      .data[
+                                                                      .docs[index]
+                                                                      .data()[
                                                                   'imageurl'],
-                                                              price: second
-                                                                  .data
-                                                                  .documents[
-                                                                      index]
-                                                                  .data['cost'],
-                                                              title: second
-                                                                  .data
-                                                                  .documents[
-                                                                      index]
-                                                                  .data['title'],
+                                                              price: second.data
+                                                                  .docs[index]
+                                                                  .data()['cost'],
+                                                              title: second.data
+                                                                      .docs[index]
+                                                                      .data()[
+                                                                  'title'],
                                                             ),
                                                           ),
                                                         ),
@@ -254,19 +230,17 @@ class _CartsState extends State<Carts> {
                                                                   color: Colors
                                                                       .white),
                                                               onTap: () async {
-                                                                Firestore
+                                                                FirebaseFirestore
                                                                     .instance
                                                                     .collection(
                                                                         "User")
-                                                                    .document(
-                                                                        uid)
+                                                                    .doc(uid)
                                                                     .collection(
                                                                         "Cart")
-                                                                    .document(snapshot
+                                                                    .doc(snapshot
                                                                         .data
-                                                                        .documents[
-                                                                            i]
-                                                                        .documentID)
+                                                                        .docs[i]
+                                                                        .id)
                                                                     .delete();
                                                                 setState(() {
                                                                   --cartitem;
@@ -309,7 +283,7 @@ class _CartsState extends State<Carts> {
                           Text(
                             "No item Found in My Cart!",
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 20,
                                 color: Theme.of(context).cardColor),
                           )
                         ]),

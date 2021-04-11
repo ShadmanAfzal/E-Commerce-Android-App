@@ -32,7 +32,7 @@ class _ProductDetailsState extends State<ProductDetails>
   bool isloading = true;
   Animation<double> _animation;
   AnimationController _animecontroller;
-  List<Widget> imageSliders = List<Widget>();
+  List<Widget> imageSliders = [];
   String _details = "";
   String title = "";
   String cost = "";
@@ -40,12 +40,12 @@ class _ProductDetailsState extends State<ProductDetails>
   String discount = "";
 
   getdetails() async {
-    await Firestore.instance
+    await FirebaseFirestore.instance
         .collection("Details")
-        .document(widget.id)
+        .doc(widget.id)
         .get()
         .then((value) {
-      value.data.forEach((key, ans) {
+      value.data().forEach((key, ans) {
         if (key.contains("image")) {
           setState(
             () {
@@ -124,15 +124,15 @@ class _ProductDetailsState extends State<ProductDetails>
           );
         }
         setState(() {
-          _details = value.data['desc'];
-          title = value.data['title'];
+          _details = value.data()['desc'];
+          title = value.data()['title'];
           cost = NumberFormat.simpleCurrency()
-              .format(value.data['cost'])
+              .format(value.data()['cost'])
               .replaceAll("\$", "₹");
 
-          discountprice = value.data['discout_cost'];
-          discount = (((value.data['cost'] - value.data['discout_cost']) /
-                      value.data['cost']) *
+          discountprice = value.data()['discout_cost'];
+          discount = (((value.data()['cost'] - value.data()['discout_cost']) /
+                      value.data()['cost']) *
                   100)
               .toInt()
               .toString();
@@ -200,7 +200,7 @@ class _ProductDetailsState extends State<ProductDetails>
               child: Row(
                 children: [
                   Flexible(
-                    child: FlatButton(
+                    child: MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       color: Colors.red.shade600,
@@ -209,30 +209,34 @@ class _ProductDetailsState extends State<ProductDetails>
                       onPressed: () async {
                         await CartFunction().addtocart(widget.id);
                         Fluttertoast.showToast(
-                            msg: "Added to Cart",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: (Theme.of(context).brightness ==
-                                    Brightness.light)
-                                ? Theme.of(context).primaryColor
-                                : Colors.amber.shade800,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
+                          msg: "Added to Cart",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor:
+                              (Theme.of(context).brightness == Brightness.light)
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.amber.shade800,
+                          textColor: Colors.white,
+                          fontSize: 16.0,
+                        );
                       },
                       child: Container(
                         child: Center(
-                            child: Text("Add to Cart",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600))),
+                          child: Text(
+                            "Add to Cart",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                         width: MediaQuery.of(context).size.width / 2,
                       ),
                     ),
                   ),
                   Flexible(
-                    child: FlatButton(
+                    child: MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       color: Colors.red.shade600,
@@ -250,11 +254,14 @@ class _ProductDetailsState extends State<ProductDetails>
                                   ))),
                       child: Container(
                         child: Center(
-                            child: Text("Buy Now",
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white))),
+                          child: Text(
+                            "Buy Now",
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
                         width: (MediaQuery.of(context).size.width / 2) - 16,
                       ),
                     ),
@@ -335,9 +342,9 @@ class _ProductDetailsState extends State<ProductDetails>
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 17.5,
                             color: Theme.of(context).cardColor,
-                            fontWeight: FontWeight.w600))),
+                            fontWeight: FontWeight.bold))),
                 SizedBox(
                   height: 10,
                 ),
@@ -359,8 +366,8 @@ class _ProductDetailsState extends State<ProductDetails>
                                 Text("4.6",
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w600)),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
                                 SizedBox(width: 5),
                                 Icon(Icons.star, color: Colors.white)
                               ]),
@@ -369,7 +376,7 @@ class _ProductDetailsState extends State<ProductDetails>
                       SizedBox(width: 10),
                       Text("83,405 ratings",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16.5,
                             color: (Theme.of(context).brightness ==
                                     Brightness.dark)
                                 ? Theme.of(context).cardColor
@@ -395,8 +402,8 @@ class _ProductDetailsState extends State<ProductDetails>
                                     Brightness.dark)
                                 ? Theme.of(context).cardColor
                                 : Colors.black87,
-                            fontSize: 20.5,
-                            fontWeight: FontWeight.w600),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         width: 7,
@@ -404,7 +411,7 @@ class _ProductDetailsState extends State<ProductDetails>
                       Text(
                         cost,
                         style: GoogleFonts.workSans(
-                            fontSize: 18.5,
+                            fontSize: 18,
                             decoration: TextDecoration.lineThrough,
                             decorationThickness: 1,
                             // color: Colors.black,
@@ -412,7 +419,7 @@ class _ProductDetailsState extends State<ProductDetails>
                                     Brightness.dark)
                                 ? Theme.of(context).cardColor
                                 : Colors.black87,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         width: 7,
@@ -420,9 +427,9 @@ class _ProductDetailsState extends State<ProductDetails>
                       Text(
                         discount + "% off",
                         style: TextStyle(
-                            fontSize: 18.5,
+                            fontSize: 18,
                             color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.bold),
                       )
                     ],
                   )),
@@ -433,7 +440,7 @@ class _ProductDetailsState extends State<ProductDetails>
                   child: Text(
                     _details.replaceAll("\\n", "\n"),
                     style: GoogleFonts.workSans(
-                      fontSize: 17,
+                      fontSize: 16,
                       color: (Theme.of(context).brightness == Brightness.dark)
                           ? Theme.of(context).cardColor
                           : Colors.black87,
@@ -448,15 +455,15 @@ class _ProductDetailsState extends State<ProductDetails>
                   child: Text(
                     "Similar Products",
                     style: TextStyle(
-                        fontSize: 18,
-                        color: Theme.of(context).cardColor,
-                        fontFamily: "MeriendaOne"),
+                      fontSize: 16,
+                      color: Theme.of(context).cardColor,
+                    ),
                   ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance
+                    stream: FirebaseFirestore.instance
                         .collection("Products")
-                        .document('WntdoInZ8j7RQJeyMqse')
+                        .doc('WntdoInZ8j7RQJeyMqse')
                         .collection("Laptops")
                         .limit(3)
                         .snapshots(),
@@ -464,36 +471,34 @@ class _ProductDetailsState extends State<ProductDetails>
                         ? ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: snapshot.data.documents.length,
+                            itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () => Navigator.of(context)
                                     .push(CupertinoPageRoute(
                                         builder: (_) => ProductDetails(
-                                              id: snapshot.data.documents[index]
-                                                  .data['id']
+                                              id: snapshot.data.docs[index]
+                                                  .data()['id']
                                                   .toString(),
                                               imageurl: snapshot
-                                                  .data
-                                                  .documents[index]
-                                                  .data['imageurl'],
-                                              type: snapshot
-                                                  .data
-                                                  .documents[index]
-                                                  .data['type'],
+                                                  .data.docs[index]
+                                                  .data()['imageurl'],
+                                              type: snapshot.data.docs[index]
+                                                  .data()['type'],
                                             ))),
                                 child: ProductCard(
-                                  id: snapshot.data.documents[index].data['id']
+                                  id: snapshot.data.docs[index]
+                                      .data()['id']
                                       .toString(),
-                                  imageurl: snapshot
-                                      .data.documents[index].data['imageurl'],
-                                  price: snapshot
-                                      .data.documents[index].data['cost']
+                                  imageurl: snapshot.data.docs[index]
+                                      .data()['imageurl'],
+                                  price: snapshot.data.docs[index]
+                                      .data()['cost']
                                       .toString(),
-                                  title: snapshot
-                                      .data.documents[index].data['title'],
-                                  type: snapshot
-                                      .data.documents[index].data['type'],
+                                  title:
+                                      snapshot.data.docs[index].data()['title'],
+                                  type:
+                                      snapshot.data.docs[index].data()['type'],
                                 ),
                               );
                             })

@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:newnippon/screens/carts.dart';
 import 'package:newnippon/screens/products.dart';
 import 'package:newnippon/widgetslib.dart/productcards.dart';
@@ -74,10 +73,10 @@ class _HomePageState extends State<HomePage> {
                 child: Stack(
                   children: [
                     IconButton(
-                      icon: SvgPicture.asset(
-                        "images/shopper.svg",
-                        color: Theme.of(context).cardColor,
-                        height: 27,
+                      icon: Icon(
+                        Icons.shopping_bag_outlined,
+                        color: Colors.red.shade700,
+                        size: 28,
                       ),
                       onPressed: () {
                         Navigator.of(context)
@@ -94,13 +93,17 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         title: Row(
           children: [
-            Icon(Icons.search, size: 27, color: Theme.of(context).cardColor),
+            Icon(
+              Icons.search,
+              size: 27,
+              color: Colors.red.shade700,
+            ),
             GestureDetector(
               child: Text(
                 "Search for deals...",
                 style: TextStyle(
-                    fontSize: 17.5,
-                    fontFamily: "MeriendaOne",
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                     color: Theme.of(context).cardColor),
               ),
               onTap: () {
@@ -127,20 +130,23 @@ class _HomePageState extends State<HomePage> {
                     aspectRatio: 2.0,
                     enlargeCenterPage: true,
                   ),
-                  items: imageSliders,
+                  items: imageSliders ?? [],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 4),
-                  child: Text("Laptops",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: "MeriendaOne",
-                          color: Theme.of(context).cardColor)),
+                  padding: const EdgeInsets.only(left: 12.0, top: 4),
+                  child: Text(
+                    "Laptops",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).cardColor,
+                    ),
+                  ),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance
+                    stream: FirebaseFirestore.instance
                         .collection("Products")
-                        .document('WntdoInZ8j7RQJeyMqse')
+                        .doc('WntdoInZ8j7RQJeyMqse')
                         .collection("Laptops")
                         .orderBy('upload_time', descending: true)
                         .where("type", isEqualTo: "laptop")
@@ -164,34 +170,37 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data.documents.length,
+                          itemCount: snapshot.data.docs.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () =>
                                   Navigator.of(context).push(CupertinoPageRoute(
                                       builder: (_) => ProductDetails(
-                                            id: snapshot.data.documents[index]
-                                                .data['id']
+                                            id: snapshot.data.docs[index]
+                                                .data()['id']
                                                 .toString(),
-                                            imageurl: snapshot
-                                                .data
-                                                .documents[index]
-                                                .data['imageurl'],
-                                            type: snapshot.data.documents[index]
-                                                .data['type'],
+                                            imageurl: snapshot.data.docs[index]
+                                                .data()['imageurl'],
+                                            type: snapshot.data.docs[index]
+                                                .data()['type'],
                                           ))),
-                              child: ProductCard(
-                                  type: snapshot
-                                      .data.documents[index].data['type'],
-                                  imageurl: snapshot
-                                      .data.documents[index].data['imageurl'],
-                                  title: snapshot
-                                      .data.documents[index].data['title'],
-                                  price: snapshot
-                                      .data.documents[index].data['cost'],
-                                  id: snapshot.data.documents[index].data['id']
-                                      .toString()),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ProductCard(
+                                    isFromHome: true,
+                                    type: snapshot.data.docs[index]
+                                        .data()['type'],
+                                    imageurl: snapshot.data.docs[index]
+                                        .data()['imageurl'],
+                                    title: snapshot.data.docs[index]
+                                        .data()['title'],
+                                    price: snapshot.data.docs[index]
+                                        .data()['cost'],
+                                    id: snapshot.data.docs[index]
+                                        .data()['id']
+                                        .toString()),
+                              ),
                             );
                           },
                         );
@@ -199,16 +208,16 @@ class _HomePageState extends State<HomePage> {
                     }),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0, top: 4),
-                  child: Text("Smartphones",
+                  child: Text("Smart Phones",
                       style: TextStyle(
                           fontSize: 18,
-                          fontFamily: "MeriendaOne",
+                          fontWeight: FontWeight.bold,
                           color: Theme.of(context).cardColor)),
                 ),
                 StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance
+                    stream: FirebaseFirestore.instance
                         .collection("Products")
-                        .document('WntdoInZ8j7RQJeyMqse')
+                        .doc('WntdoInZ8j7RQJeyMqse')
                         .collection("Laptops")
                         .orderBy('upload_time', descending: true)
                         .where("type", isEqualTo: "mobile")
@@ -232,34 +241,37 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         return ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data.documents.length,
+                          itemCount: snapshot.data.docs.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () =>
                                   Navigator.of(context).push(CupertinoPageRoute(
                                       builder: (_) => ProductDetails(
-                                            id: snapshot.data.documents[index]
-                                                .data['id']
+                                            id: snapshot.data.docs[index]
+                                                .data()['id']
                                                 .toString(),
-                                            imageurl: snapshot
-                                                .data
-                                                .documents[index]
-                                                .data['imageurl'],
-                                            type: snapshot.data.documents[index]
-                                                .data['type'],
+                                            imageurl: snapshot.data.docs[index]
+                                                .data()['imageurl'],
+                                            type: snapshot.data.docs[index]
+                                                .data()['type'],
                                           ))),
-                              child: ProductCard(
-                                  type: snapshot
-                                      .data.documents[index].data['type'],
-                                  imageurl: snapshot
-                                      .data.documents[index].data['imageurl'],
-                                  title: snapshot
-                                      .data.documents[index].data['title'],
-                                  price: snapshot
-                                      .data.documents[index].data['cost'],
-                                  id: snapshot.data.documents[index].data['id']
-                                      .toString()),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: ProductCard(
+                                    isFromHome: true,
+                                    type: snapshot.data.docs[index]
+                                        .data()['type'],
+                                    imageurl: snapshot.data.docs[index]
+                                        .data()['imageurl'],
+                                    title: snapshot.data.docs[index]
+                                        .data()['title'],
+                                    price: snapshot.data.docs[index]
+                                        .data()['cost'],
+                                    id: snapshot.data.docs[index]
+                                        .data()['id']
+                                        .toString()),
+                              ),
                             );
                           },
                         );

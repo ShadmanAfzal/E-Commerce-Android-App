@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:newnippon/services/userinfo.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -106,12 +105,12 @@ class _DetailPageState extends State<DetailPage> {
   adddatatofirebase() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
-    Firestore.instance
+    FirebaseFirestore.instance
         .collection("User")
-        .document(uid)
+        .doc(uid)
         .collection("Order")
-        .document(formattedDate)
-        .setData({
+        .doc(formattedDate)
+        .set({
       "imageurl": widget.imageurl,
       "Item": widget.name,
       "cost": widget.amount,
@@ -156,10 +155,7 @@ class _DetailPageState extends State<DetailPage> {
         elevation: 0,
         title: Text(
           !isSuccess ? "Enter Shipping Details" : "Payment Successful",
-          style: TextStyle(
-              fontFamily: "MeriendaOne",
-              color: Theme.of(context).cardColor,
-              fontSize: 17),
+          style: TextStyle(color: Theme.of(context).cardColor, fontSize: 16),
         ),
       ),
       body: SingleChildScrollView(
@@ -178,8 +174,8 @@ class _DetailPageState extends State<DetailPage> {
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
                               initialValue: name,
-                              style: GoogleFonts.lato(
-                                fontSize: 17.5,
+                              style: TextStyle(
+                                fontSize: 16,
                                 color: Theme.of(context).cardColor,
                               ),
                               decoration: InputDecoration(
@@ -194,7 +190,7 @@ class _DetailPageState extends State<DetailPage> {
                                     borderSide: BorderSide(
                                         color: Theme.of(context).cardColor,
                                         width: 1.1)),
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -214,11 +210,6 @@ class _DetailPageState extends State<DetailPage> {
                                     borderSide: BorderSide(
                                         color: Theme.of(context).cardColor,
                                         width: 1.1)),
-                                // border: UnderlineInputBorder(
-                                //     borderSide: BorderSide(
-                                //         color: Theme.of(context).cardColor,
-                                //         width: 1.1)),
-
                                 border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Theme.of(context).cardColor,
@@ -240,8 +231,8 @@ class _DetailPageState extends State<DetailPage> {
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
                               initialValue: email,
-                              style: GoogleFonts.lato(
-                                fontSize: 17.5,
+                              style: TextStyle(
+                                fontSize: 16,
                                 color: Theme.of(context).cardColor,
                               ),
                               decoration: InputDecoration(
@@ -250,7 +241,7 @@ class _DetailPageState extends State<DetailPage> {
                                     borderSide: BorderSide(
                                         color: Theme.of(context).cardColor,
                                         width: 1.1)),
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -302,13 +293,13 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(height: 10),
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
-                              style: GoogleFonts.lato(
+                              style: TextStyle(
                                   color: Theme.of(context).cardColor,
-                                  fontSize: 17.5),
+                                  fontSize: 16),
                               keyboardType: TextInputType.numberWithOptions(),
                               decoration: InputDecoration(
                                 hintText: "Phone Number",
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -358,13 +349,13 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(height: 10),
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
-                              style: GoogleFonts.lato(
+                              style: TextStyle(
                                   color: Theme.of(context).cardColor,
-                                  fontSize: 17.5),
+                                  fontSize: 16),
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 hintText: "Address",
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -416,13 +407,13 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(height: 10),
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
-                              style: GoogleFonts.lato(
+                              style: TextStyle(
                                   color: Theme.of(context).cardColor,
-                                  fontSize: 17.5),
+                                  fontSize: 16),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 hintText: "Apartment No.",
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -472,13 +463,13 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(height: 10),
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
-                              style: GoogleFonts.lato(
+                              style: TextStyle(
                                   color: Theme.of(context).cardColor,
-                                  fontSize: 17.5),
+                                  fontSize: 16),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 hintText: "Landmark",
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -522,13 +513,13 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(height: 10),
                             TextFormField(
                               cursorColor: Theme.of(context).cardColor,
-                              style: GoogleFonts.lato(
+                              style: TextStyle(
                                   color: Theme.of(context).cardColor,
-                                  fontSize: 17.5),
+                                  fontSize: 16),
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 hintText: "City",
-                                errorStyle: GoogleFonts.lato(
+                                errorStyle: TextStyle(
                                   fontSize: 15,
                                   color: (Theme.of(context).brightness ==
                                           Brightness.light)
@@ -586,9 +577,9 @@ class _DetailPageState extends State<DetailPage> {
                                       color: Theme.of(context).cardColor,
                                     ),
                                     iconSize: 30,
-                                    style: GoogleFonts.lato(
+                                    style: TextStyle(
                                         color: Theme.of(context).cardColor,
-                                        fontSize: 17.5),
+                                        fontSize: 16),
                                     value: state,
                                     hint: Text("Enter State"),
                                     items: <String>[
@@ -625,10 +616,10 @@ class _DetailPageState extends State<DetailPage> {
                                       return new DropdownMenuItem<String>(
                                         value: value,
                                         child: new Text(value,
-                                            style: GoogleFonts.lato(
+                                            style: TextStyle(
                                                 color:
                                                     Theme.of(context).cardColor,
-                                                fontSize: 17.5)),
+                                                fontSize: 16)),
                                       );
                                     }).toList(),
                                     onChanged: (value) {
@@ -647,8 +638,8 @@ class _DetailPageState extends State<DetailPage> {
                                         cursorColor:
                                             Theme.of(context).cardColor,
                                         keyboardType: TextInputType.number,
-                                        style: GoogleFonts.lato(
-                                          fontSize: 17.5,
+                                        style: TextStyle(
+                                          fontSize: 16,
                                           color: Theme.of(context).cardColor,
                                         ),
                                         decoration: InputDecoration(
@@ -715,7 +706,8 @@ class _DetailPageState extends State<DetailPage> {
                       )),
                     ),
                     SizedBox(height: 20),
-                    FlatButton(
+                    MaterialButton(
+                        elevation: 0,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7)),
                         color: Colors.red.shade600,
@@ -750,7 +742,7 @@ class _DetailPageState extends State<DetailPage> {
                       width: MediaQuery.of(context).size.width,
                     ),
                     SizedBox(height: 40),
-                    FlatButton(
+                    MaterialButton(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(7),
                         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:newnippon/services/authservice.dart';
+
+import 'dashboard.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key}) : super(key: key);
@@ -39,9 +39,14 @@ class _SignUpState extends State<SignUp> {
   }
 
   showAlertDialog(BuildContext context, errormsg) {
-    Widget okButton = FlatButton(
-      child: Text("OK",
-          style: TextStyle(fontSize: 18, color: Colors.red.shade700)),
+    Widget okButton = TextButton(
+      child: Text(
+        "OK",
+        style: TextStyle(
+            fontSize: 16.5,
+            color: Colors.red.shade700,
+            fontWeight: FontWeight.bold),
+      ),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -51,7 +56,7 @@ class _SignUpState extends State<SignUp> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: Text(errormsg,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16.5,
           )),
       actions: [
         okButton,
@@ -76,10 +81,10 @@ class _SignUpState extends State<SignUp> {
             valueColor: AlwaysStoppedAnimation<Color>(Colors.red[700]),
           ),
           SizedBox(width: 20),
-          Text("Please Wait...",
-              style: TextStyle(
-                fontSize: 18,
-              )),
+          Text(
+            "Please Wait...",
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+          ),
         ],
       ),
     );
@@ -183,8 +188,9 @@ class _SignUpState extends State<SignUp> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 30.0),
                                           child: TextFormField(
-                                            style: GoogleFonts.lato(
-                                              fontSize: 17.5,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                             keyboardType: TextInputType.text,
@@ -207,11 +213,14 @@ class _SignUpState extends State<SignUp> {
                                                     InputBorder.none,
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                errorStyle: GoogleFonts.lato(
-                                                    fontSize: 16),
+                                                errorStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                                 hintText: 'eg. Alex',
                                                 hintStyle: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: 16.5,
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.white70,
                                                 )),
                                           ),
@@ -223,10 +232,10 @@ class _SignUpState extends State<SignUp> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 30.0),
                                           child: TextFormField(
-                                            style: GoogleFonts.lato(
-                                              fontSize: 17.5,
-                                              color: Colors.white,
-                                            ),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
                                             cursorColor: Colors.white,
                                             keyboardType:
                                                 TextInputType.emailAddress,
@@ -253,11 +262,14 @@ class _SignUpState extends State<SignUp> {
                                                     InputBorder.none,
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                errorStyle: GoogleFonts.lato(
-                                                    fontSize: 16),
+                                                errorStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                                 hintText: ' some@domian.com',
                                                 hintStyle: TextStyle(
-                                                  fontSize: 17,
+                                                  fontSize: 16.5,
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.white70,
                                                 )),
                                           ),
@@ -294,14 +306,16 @@ class _SignUpState extends State<SignUp> {
                                             controller: _passwordController,
                                             enableInteractiveSelection: false,
                                             obscureText: secure,
-                                            style: GoogleFonts.lato(
-                                              fontSize: 17.5,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                             decoration: InputDecoration(
                                               disabledBorder: InputBorder.none,
-                                              errorStyle: GoogleFonts.lato(
-                                                  fontSize: 16),
+                                              errorStyle: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
                                               enabledBorder: InputBorder.none,
                                               suffixIcon: IconButton(
                                                 icon: secure
@@ -320,6 +334,7 @@ class _SignUpState extends State<SignUp> {
                                               hintText: ' Password',
                                               hintStyle: TextStyle(
                                                 fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.white70,
                                               ),
                                             ),
@@ -332,7 +347,7 @@ class _SignUpState extends State<SignUp> {
                                     height: 50,
                                   ),
                                   Center(
-                                    child: FlatButton(
+                                    child: MaterialButton(
                                       hoverColor: Colors.transparent,
                                       splashColor: Colors.transparent,
                                       shape: RoundedRectangleBorder(
@@ -344,9 +359,9 @@ class _SignUpState extends State<SignUp> {
                                               child: Text(
                                             "Create Account",
                                             style: TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 20,
                                                 color: Colors.white,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.w700),
                                           )),
                                           width: MediaQuery.of(context)
                                                   .size
@@ -365,8 +380,13 @@ class _SignUpState extends State<SignUp> {
                                                   _name.trim());
 
                                           if (result[0]) {
-                                            Navigator.of(context).pop();
-                                            Phoenix.rebirth(context);
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DashBoard(),
+                                              ),
+                                            );
                                           } else {
                                             {
                                               Navigator.of(context).pop();
@@ -399,8 +419,9 @@ class _SignUpState extends State<SignUp> {
                                             child: RichText(
                                               text: TextSpan(
                                                 text: "Already have a account!",
-                                                style: GoogleFonts.lato(
-                                                  fontSize: 16,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -416,8 +437,9 @@ class _SignUpState extends State<SignUp> {
                                           child: RichText(
                                             text: TextSpan(
                                               text: ' Login',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 16,
+                                              style: TextStyle(
+                                                fontSize: 17.5,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.red.shade700,
                                               ),
                                             ),

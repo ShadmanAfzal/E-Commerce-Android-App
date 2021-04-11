@@ -1,9 +1,5 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:dynamic_theme/theme_switcher_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:newnippon/screens/carts.dart';
 import 'package:newnippon/screens/loginpage.dart';
 import 'package:newnippon/screens/orders.dart';
@@ -17,19 +13,6 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  void showChooser() {
-    showDialog<void>(
-        context: context,
-        builder: (context) {
-          return BrightnessSwitcherDialog(
-            onSelectedTheme: (brightness) {
-              DynamicTheme.of(context).setBrightness(brightness);
-              // Phoenix.rebirth(context);
-            },
-          );
-        });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -75,20 +58,22 @@ class _SettingPageState extends State<SettingPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FlatButton(
+                    TextButton(
                         child: Text('Cancel',
                             style: TextStyle(
                                 fontSize: 17,
+                                fontWeight: FontWeight.bold,
                                 color: (color.brightness == Brightness.light)
                                     ? Colors.black
                                     : Colors.white)),
                         onPressed: () {
                           Navigator.of(context).pop();
                         }),
-                    FlatButton(
+                    TextButton(
                         child: Text('Confirm',
                             style: TextStyle(
                                 fontSize: 16,
+                                fontWeight: FontWeight.bold,
                                 color: (color.brightness == Brightness.light)
                                     ? Colors.black
                                     : Colors.white)),
@@ -113,15 +98,18 @@ class _SettingPageState extends State<SettingPage> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         // leading: Container(),
-        iconTheme: IconThemeData(color: Theme.of(context).cardColor),
+        iconTheme: IconThemeData(
+          color: Colors.red.shade700,
+        ),
         elevation: 0,
         backgroundColor: Theme.of(context).backgroundColor,
         title: Text(
           "Settings",
           style: TextStyle(
-              fontFamily: "MeriendaOne",
-              color: Theme.of(context).cardColor,
-              fontSize: 17),
+            color: Theme.of(context).cardColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
         ),
       ),
       body: Container(
@@ -134,37 +122,40 @@ class _SettingPageState extends State<SettingPage> {
                       new MaterialPageRoute(builder: (context) => Carts()));
                 },
                 visualDensity: VisualDensity.comfortable,
-                leading: SvgPicture.asset(
-                  "images/shopper.svg",
-                  color: Theme.of(context).cardColor,
-                  height: 26,
+                leading: Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 27,
+                  color: Colors.red.shade700,
                 ),
                 title: Text(
                   "My Cart",
-                  style: GoogleFonts.lato(
+                  style: TextStyle(
                       color: Theme.of(context).cardColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
+                      fontSize: 16.5,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
               Divider(thickness: 0.6),
               ListTile(
                 visualDensity: VisualDensity.comfortable,
                 onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => Orders()));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => Orders(),
+                    ),
+                  );
                 },
-                leading: SvgPicture.asset(
-                  "images/order.svg",
-                  color: Theme.of(context).cardColor,
-                  height: 27,
+                leading: Icon(
+                  Icons.category,
+                  size: 27,
+                  color: Colors.red.shade700,
                 ),
                 title: Text(
                   "My Orders",
-                  style: GoogleFonts.lato(
+                  style: TextStyle(
                       color: Theme.of(context).cardColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
+                      fontSize: 16.5,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Divider(thickness: 0.6),
@@ -176,42 +167,17 @@ class _SettingPageState extends State<SettingPage> {
                 },
                 visualDensity: VisualDensity.comfortable,
                 leading: Icon(
-                  Icons.exit_to_app,
-                  color: Theme.of(context).cardColor,
+                  Icons.logout,
+                  color: Colors.red.shade700,
+                  // color: Theme.of(context).cardColor,
                   size: 26,
                 ),
                 title: Text(
                   "Logout",
-                  style: GoogleFonts.lato(
+                  style: TextStyle(
                       color: Theme.of(context).cardColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              Divider(thickness: 0.6),
-              ListTile(
-                onTap: () {
-                  DynamicTheme.of(context).setBrightness(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Brightness.light
-                          : Brightness.dark);
-                },
-                visualDensity: VisualDensity.comfortable,
-                leading: FaIcon(
-                  Theme.of(context).brightness == Brightness.light
-                      ? FontAwesomeIcons.moon
-                      : FontAwesomeIcons.sun,
-                  color: Theme.of(context).cardColor,
-                  size: 25,
-                ),
-                title: Text(
-                  Theme.of(context).brightness == Brightness.light
-                      ? "Dark Theme"
-                      : "Light Theme",
-                  style: GoogleFonts.lato(
-                      color: Theme.of(context).cardColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
+                      fontSize: 16.5,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Divider(thickness: 0.6),
@@ -221,16 +187,18 @@ class _SettingPageState extends State<SettingPage> {
                   showalert(context, Theme.of(context));
                 },
                 leading: Icon(
-                  Icons.delete_outline,
-                  color: Theme.of(context).cardColor,
+                  Icons.delete_outline_rounded,
+                  color: Colors.red.shade700,
+
+                  // color: Theme.of(context).cardColor,
                   size: 26,
                 ),
                 title: Text(
                   "Delete Account",
-                  style: GoogleFonts.lato(
+                  style: TextStyle(
                       color: Theme.of(context).cardColor,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600),
+                      fontSize: 16.5,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ],

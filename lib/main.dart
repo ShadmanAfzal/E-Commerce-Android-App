@@ -1,17 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:newnippon/screens/dashboard.dart';
 import 'package:newnippon/screens/signuppage.dart';
 import 'package:newnippon/services/authservice.dart';
 import 'screens/loginpage.dart';
 
-void main() {
-  runApp(
-    Phoenix(
-      child: MyApp(),
-    ),
-  );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,10 +17,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       color: Colors.black,
       theme: ThemeData(
-        textTheme: GoogleFonts.latoTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
+          fontFamily: "Whitney",
+          accentColor: Colors.red,
+          primaryColorDark: Colors.red.shade100,
+          primaryColor: Colors.red.shade700,
+          backgroundColor: Colors.white,
+          cardColor: Colors.black),
       debugShowCheckedModeBanner: false,
       title: 'NewNippon',
       home: AuthService().handleAuth(),

@@ -1,10 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../services/authservice.dart';
 import './signuppage.dart';
+import 'dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -36,9 +35,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   showAlertDialog(BuildContext context, errormsg) {
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("OK",
-          style: TextStyle(fontSize: 18, color: Colors.red.shade700)),
+          style: TextStyle(fontSize: 16.5, color: Colors.red.shade700)),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -49,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: Text(errormsg,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16.5,
           )),
       actions: [
         okButton,
@@ -77,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           SizedBox(width: 20),
           Text("Please Wait...",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16.5,
               )),
         ],
       ),
@@ -161,8 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 30.0),
                                         child: TextFormField(
-                                          style: GoogleFonts.lato(
-                                              fontSize: 17.5,
+                                          style: TextStyle(
+                                              fontSize: 16.5,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                           keyboardType:
                                               TextInputType.emailAddress,
@@ -186,15 +186,20 @@ class _LoginPageState extends State<LoginPage> {
                                           controller: _emailController,
                                           cursorColor: Colors.white,
                                           decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              disabledBorder: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                              hintText: ' some@domian.com',
-                                              errorStyle: GoogleFonts.lato(
-                                                  fontSize: 16),
-                                              hintStyle: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontSize: 17)),
+                                            border: InputBorder.none,
+                                            disabledBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            hintText: ' some@domian.com',
+                                            errorStyle: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -227,8 +232,9 @@ class _LoginPageState extends State<LoginPage> {
                                           obscureText: secure,
                                           cursorColor: Colors.white,
                                           enableInteractiveSelection: false,
-                                          style: GoogleFonts.lato(
-                                            fontSize: 17.5,
+                                          style: TextStyle(
+                                            fontSize: 16.5,
+                                            fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),
                                           decoration: InputDecoration(
@@ -248,12 +254,13 @@ class _LoginPageState extends State<LoginPage> {
                                               ),
                                               enabledBorder: InputBorder.none,
                                               border: InputBorder.none,
-                                              errorStyle: GoogleFonts.lato(
-                                                  fontSize: 16),
+                                              errorStyle:
+                                                  TextStyle(fontSize: 16),
                                               hintText: ' Password',
                                               hintStyle: TextStyle(
                                                 color: Colors.white70,
-                                                fontSize: 17,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                               )),
                                         ),
                                       ),
@@ -266,7 +273,7 @@ class _LoginPageState extends State<LoginPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Center(
-                                  child: FlatButton(
+                                  child: MaterialButton(
                                     splashColor: Colors.transparent,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -274,13 +281,15 @@ class _LoginPageState extends State<LoginPage> {
                                     visualDensity: VisualDensity.comfortable,
                                     child: Container(
                                         child: Center(
-                                            child: Text(
-                                          "Login",
-                                          style: TextStyle(
-                                              fontSize: 19,
+                                          child: Text(
+                                            "Login",
+                                            style: TextStyle(
+                                              fontSize: 20,
                                               color: Colors.white,
-                                              fontWeight: FontWeight.w600),
-                                        )),
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
                                         width:
                                             MediaQuery.of(context).size.width -
                                                 70,
@@ -295,7 +304,11 @@ class _LoginPageState extends State<LoginPage> {
                                                 _password.trim());
                                         if (result[0]) {
                                           Navigator.of(context).pop();
-                                          Phoenix.rebirth(context);
+                                          Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                              builder: (context) => DashBoard(),
+                                            ),
+                                          );
                                         } else {
                                           Navigator.of(context).pop();
                                           showAlertDialog(context, result[1]);
@@ -305,7 +318,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                                 Center(
                                   child: Row(
@@ -315,21 +328,23 @@ class _LoginPageState extends State<LoginPage> {
                                     children: [
                                       Container(
                                         decoration: BoxDecoration(
-                                            border: Border(
-                                                bottom: BorderSide(
-                                          color: Colors.white,
-                                          width: 1.0,
-                                        ))),
+                                          border: Border(
+                                            bottom: BorderSide(
+                                              color: Colors.white,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                        ),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               bottom: 3.0),
                                           child: RichText(
                                             text: TextSpan(
                                               text: "Don't have an account?",
-                                              style: GoogleFonts.lato(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                              ),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ),
@@ -347,8 +362,9 @@ class _LoginPageState extends State<LoginPage> {
                                         child: RichText(
                                           text: TextSpan(
                                               text: ' Sign up',
-                                              style: GoogleFonts.lato(
-                                                fontSize: 16,
+                                              style: TextStyle(
+                                                fontSize: 16.5,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.red.shade700,
                                               )),
                                         ),

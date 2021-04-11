@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:newnippon/screens/products.dart';
 
 class SearchBar extends StatefulWidget {
@@ -31,9 +30,12 @@ class _SearchBarState extends State<SearchBar> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.red.shade700,
+        ),
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).cardColor),
+            icon: Icon(Icons.arrow_back, color: Colors.red.shade700),
             onPressed: () {
               FocusScope.of(context).unfocus();
               widget.controller.animateTo(0);
@@ -41,7 +43,10 @@ class _SearchBarState extends State<SearchBar> {
         backgroundColor: Theme.of(context).backgroundColor,
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: Theme.of(context).cardColor),
+            icon: Icon(
+              Icons.search,
+              color: Colors.red.shade700,
+            ),
             onPressed: () {
               setState(() {
                 search = _search.value.text;
@@ -62,17 +67,18 @@ class _SearchBarState extends State<SearchBar> {
                 search = "123456789";
               });
           },
-          style: GoogleFonts.lato(
+          style: TextStyle(
             fontSize: 17,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
             // fontWeight: FontWeight.w600,
             color: Theme.of(context).cardColor,
           ),
           decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: " Search...",
+            hintText: "Search...",
             hintStyle: TextStyle(
                 fontSize: 17,
+                fontWeight: FontWeight.bold,
                 color: (Theme.of(context).brightness == Brightness.light)
                     ? Colors.grey.shade700
                     : Colors.white70),
@@ -90,9 +96,9 @@ class _SearchBarState extends State<SearchBar> {
           child: Column(
             children: [
               StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
+                  stream: FirebaseFirestore.instance
                       .collection("Products")
-                      .document('WntdoInZ8j7RQJeyMqse')
+                      .doc('WntdoInZ8j7RQJeyMqse')
                       .collection("Laptops")
                       .where('search',
                           isGreaterThanOrEqualTo: search.toLowerCase())
@@ -103,13 +109,13 @@ class _SearchBarState extends State<SearchBar> {
                       return ListView.separated(
                         separatorBuilder: (_, x) {
                           return Divider(
-                            thickness: 2,
+                            thickness: 0.4,
                             indent: 40,
                             endIndent: 40,
                           );
                         },
                         shrinkWrap: true,
-                        itemCount: snapshot.data.documents.length,
+                        itemCount: snapshot.data.docs.length,
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
@@ -117,27 +123,32 @@ class _SearchBarState extends State<SearchBar> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => ProductDetails(
-                                      type: snapshot
-                                          .data.documents[index].data['type'],
-                                      imageurl: snapshot.data.documents[index]
-                                          .data['imageurl'],
-                                      id: snapshot
-                                          .data.documents[index].data['id']
+                                      type: snapshot.data.docs[index]
+                                          .data()['type'],
+                                      imageurl: snapshot.data.docs[index]
+                                          .data()['imageurl'],
+                                      id: snapshot.data.docs[index]
+                                          .data()['id']
                                           .toString())));
                             },
                             title: Text(
-                              snapshot.data.documents[index].data['title'],
+                              snapshot.data.docs[index].data()['title'],
                               style: TextStyle(
                                 fontSize: 17,
+                                fontWeight: FontWeight.bold,
                                 color: Theme.of(context).cardColor,
-                                fontWeight: FontWeight.w600,
+                                // fontWeight: FontWeight.w600,
                               ),
                             ),
-                            leading: Icon(Icons.search,
-                                color: Theme.of(context).cardColor),
+                            leading: Icon(
+                              Icons.search,
+                              color: Colors.red.shade700,
+                            ),
                             trailing: RotatedBox(
-                              child: Icon(Icons.call_made,
-                                  color: Theme.of(context).cardColor),
+                              child: Icon(
+                                Icons.call_made,
+                                color: Colors.red.shade700,
+                              ),
                               quarterTurns: 3,
                             ),
                           );
