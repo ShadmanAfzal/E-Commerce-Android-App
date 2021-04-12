@@ -36,8 +36,10 @@ class _LoginPageState extends State<LoginPage> {
 
   showAlertDialog(BuildContext context, errormsg) {
     Widget okButton = TextButton(
-      child: Text("OK",
-          style: TextStyle(fontSize: 16.5, color: Colors.red.shade700)),
+      child: Text(
+        "OK",
+        style: TextStyle(fontSize: 16.5, color: Colors.red.shade700),
+      ),
       onPressed: () {
         Navigator.of(context).pop();
       },
@@ -46,10 +48,13 @@ class _LoginPageState extends State<LoginPage> {
     AlertDialog alert = AlertDialog(
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      content: Text(errormsg,
-          style: TextStyle(
-            fontSize: 16.5,
-          )),
+      content: Text(
+        errormsg,
+        style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       actions: [
         okButton,
       ],
@@ -74,10 +79,13 @@ class _LoginPageState extends State<LoginPage> {
             valueColor: AlwaysStoppedAnimation<Color>(Colors.red[700]),
           ),
           SizedBox(width: 20),
-          Text("Please Wait...",
-              style: TextStyle(
-                fontSize: 16.5,
-              )),
+          Text(
+            "Please Wait...",
+            style: TextStyle(
+              fontSize: 16.5,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
@@ -96,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.white,
           body: Stack(
             children: [
               SingleChildScrollView(
@@ -120,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                                         text: "New",
                                         style: TextStyle(
                                           fontSize: 50,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -130,7 +138,8 @@ class _LoginPageState extends State<LoginPage> {
                                           text: "Nippon",
                                           style: TextStyle(
                                             fontSize: 50,
-                                            color: Colors.white,
+                                            color: Colors.black,
+                                            // color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                           ),
                                           children: [
@@ -158,12 +167,12 @@ class _LoginPageState extends State<LoginPage> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 30.0),
+                                            horizontal: 20.0),
                                         child: TextFormField(
                                           style: TextStyle(
                                               fontSize: 16.5,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                                              color: Colors.black),
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           validator: (email) {
@@ -184,18 +193,30 @@ class _LoginPageState extends State<LoginPage> {
                                             });
                                           },
                                           controller: _emailController,
-                                          cursorColor: Colors.white,
+                                          cursorColor: Colors.black,
                                           decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            hintText: ' some@domian.com',
+                                            isDense: true,
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                              gapPadding: 0,
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            border: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                gapPadding: 0,
+                                                borderRadius:
+                                                    BorderRadius.circular(6)),
+                                            hintText: 'Enter your Email ID',
+                                            fillColor: Colors.grey.shade100,
+                                            filled: true,
                                             errorStyle: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                             ),
                                             hintStyle: TextStyle(
-                                              color: Colors.white70,
+                                              color:
+                                                  Colors.black.withOpacity(0.8),
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
                                             ),
@@ -207,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 30.0),
+                                            horizontal: 20.0),
                                         child: TextFormField(
                                           keyboardType:
                                               TextInputType.visiblePassword,
@@ -230,15 +251,17 @@ class _LoginPageState extends State<LoginPage> {
                                           },
                                           controller: _passwordController,
                                           obscureText: secure,
-                                          cursorColor: Colors.white,
+                                          cursorColor: Colors.black,
                                           enableInteractiveSelection: false,
                                           style: TextStyle(
                                             fontSize: 16.5,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: Colors.black,
                                           ),
                                           decoration: InputDecoration(
                                               disabledBorder: InputBorder.none,
+                                              fillColor: Colors.grey.shade100,
+                                              filled: true,
                                               suffixIcon: IconButton(
                                                 icon: secure
                                                     ? Icon(Icons.lock_outline,
@@ -252,13 +275,26 @@ class _LoginPageState extends State<LoginPage> {
                                                   });
                                                 },
                                               ),
-                                              enabledBorder: InputBorder.none,
-                                              border: InputBorder.none,
-                                              errorStyle:
-                                                  TextStyle(fontSize: 16),
-                                              hintText: ' Password',
+                                              isDense: true,
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                gapPadding: 0,
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  gapPadding: 0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
+                                              errorStyle: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              hintText: 'Password',
                                               hintStyle: TextStyle(
-                                                color: Colors.white70,
+                                                color: Colors.black
+                                                    .withOpacity(0.8),
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                               )),
@@ -323,7 +359,7 @@ class _LoginPageState extends State<LoginPage> {
                                 Center(
                                   child: Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Container(
@@ -331,21 +367,19 @@ class _LoginPageState extends State<LoginPage> {
                                           border: Border(
                                             bottom: BorderSide(
                                               color: Colors.white,
-                                              width: 1.0,
+                                              width: 0.0,
                                             ),
                                           ),
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               bottom: 3.0),
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "Don't have an account?",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
+                                          child: Text(
+                                            "Don't have an account?",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
@@ -363,7 +397,7 @@ class _LoginPageState extends State<LoginPage> {
                                           text: TextSpan(
                                               text: ' Sign up',
                                               style: TextStyle(
-                                                fontSize: 16.5,
+                                                fontSize: 17,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.red.shade700,
                                               )),

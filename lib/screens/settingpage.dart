@@ -48,7 +48,7 @@ class _SettingPageState extends State<SettingPage> {
                               color: (color.brightness != Brightness.light)
                                   ? Colors.amber
                                   : Colors.red.shade700,
-                              fontSize: 18),
+                              fontSize: 20),
                         ),
                       )
                     ],
@@ -108,7 +108,7 @@ class _SettingPageState extends State<SettingPage> {
           style: TextStyle(
             color: Theme.of(context).cardColor,
             fontWeight: FontWeight.bold,
-            fontSize: 18,
+            fontSize: 20,
           ),
         ),
       ),
@@ -135,7 +135,11 @@ class _SettingPageState extends State<SettingPage> {
                       fontWeight: FontWeight.w700),
                 ),
               ),
-              Divider(thickness: 0.6),
+              Divider(
+                thickness: 0.4,
+                endIndent: 20,
+                indent: 20,
+              ),
               ListTile(
                 visualDensity: VisualDensity.comfortable,
                 onTap: () {
@@ -158,7 +162,11 @@ class _SettingPageState extends State<SettingPage> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Divider(thickness: 0.6),
+              Divider(
+                thickness: 0.4,
+                endIndent: 20,
+                indent: 20,
+              ),
               ListTile(
                 onTap: () {
                   AuthService().signOut();
@@ -180,7 +188,11 @@ class _SettingPageState extends State<SettingPage> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Divider(thickness: 0.6),
+              Divider(
+                thickness: 0.4,
+                endIndent: 20,
+                indent: 20,
+              ),
               ListTile(
                 visualDensity: VisualDensity.comfortable,
                 onTap: () {

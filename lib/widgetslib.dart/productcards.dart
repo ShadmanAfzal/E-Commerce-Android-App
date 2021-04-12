@@ -24,11 +24,11 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       borderOnForeground: false,
-      elevation: isFromHome == null ? 0.8 : 4,
+      elevation: isFromHome == null ? 0.8 : 3,
       color: Theme.of(context).backgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(right: 8.0),
         child: Container(
             height: 106,
             width: MediaQuery.of(context).size.width,

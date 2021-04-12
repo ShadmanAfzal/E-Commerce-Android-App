@@ -397,7 +397,7 @@ class _ProductDetailsState extends State<ProductDetails>
                         NumberFormat.simpleCurrency()
                             .format(discountprice)
                             .replaceAll("\$", "₹"),
-                        style: GoogleFonts.workSans(
+                        style: TextStyle(
                             color: (Theme.of(context).brightness ==
                                     Brightness.dark)
                                 ? Theme.of(context).cardColor
@@ -410,7 +410,7 @@ class _ProductDetailsState extends State<ProductDetails>
                       ),
                       Text(
                         cost,
-                        style: GoogleFonts.workSans(
+                        style: TextStyle(
                             fontSize: 18,
                             decoration: TextDecoration.lineThrough,
                             decorationThickness: 1,
@@ -455,7 +455,8 @@ class _ProductDetailsState extends State<ProductDetails>
                   child: Text(
                     "Similar Products",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Theme.of(context).cardColor,
                     ),
                   ),
@@ -486,19 +487,23 @@ class _ProductDetailsState extends State<ProductDetails>
                                               type: snapshot.data.docs[index]
                                                   .data()['type'],
                                             ))),
-                                child: ProductCard(
-                                  id: snapshot.data.docs[index]
-                                      .data()['id']
-                                      .toString(),
-                                  imageurl: snapshot.data.docs[index]
-                                      .data()['imageurl'],
-                                  price: snapshot.data.docs[index]
-                                      .data()['cost']
-                                      .toString(),
-                                  title:
-                                      snapshot.data.docs[index].data()['title'],
-                                  type:
-                                      snapshot.data.docs[index].data()['type'],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: ProductCard(
+                                    isFromHome: true,
+                                    id: snapshot.data.docs[index]
+                                        .data()['id']
+                                        .toString(),
+                                    imageurl: snapshot.data.docs[index]
+                                        .data()['imageurl'],
+                                    price: snapshot.data.docs[index]
+                                        .data()['cost']
+                                        .toString(),
+                                    title: snapshot.data.docs[index]
+                                        .data()['title'],
+                                    type: snapshot.data.docs[index]
+                                        .data()['type'],
+                                  ),
                                 ),
                               );
                             })

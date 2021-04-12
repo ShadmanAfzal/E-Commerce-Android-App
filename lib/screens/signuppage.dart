@@ -54,10 +54,13 @@ class _SignUpState extends State<SignUp> {
 
     AlertDialog alert = AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      content: Text(errormsg,
-          style: TextStyle(
-            fontSize: 16.5,
-          )),
+      content: Text(
+        errormsg,
+        style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       actions: [
         okButton,
       ],
@@ -101,7 +104,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             SingleChildScrollView(
@@ -112,16 +115,19 @@ class _SignUpState extends State<SignUp> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 20),
-                          IconButton(
-                            icon: Icon(Icons.arrow_back_ios),
-                            color: Colors.white,
-                            onPressed: () {
-                              _emailController.clear();
-                              _passwordController.clear();
-                              _nameController.clear();
-                              Navigator.of(context).pop();
-                            },
+                          SizedBox(height: 30),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                              icon: Icon(Icons.arrow_back_ios),
+                              color: Colors.black,
+                              onPressed: () {
+                                _emailController.clear();
+                                _passwordController.clear();
+                                _nameController.clear();
+                                Navigator.of(context).pop();
+                              },
+                            ),
                           ),
                           Container(
                             child: Column(
@@ -145,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                                                   text: "New",
                                                   style: TextStyle(
                                                     fontSize: 50,
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
@@ -155,7 +161,7 @@ class _SignUpState extends State<SignUp> {
                                                     text: "Nippon",
                                                     style: TextStyle(
                                                       fontSize: 50,
-                                                      color: Colors.white,
+                                                      color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -186,15 +192,15 @@ class _SignUpState extends State<SignUp> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 30.0),
+                                              horizontal: 20.0),
                                           child: TextFormField(
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                              color: Colors.black,
                                             ),
                                             keyboardType: TextInputType.text,
-                                            cursorColor: Colors.white,
+                                            cursorColor: Colors.black,
                                             validator: (name) {
                                               if (name.length > 0) {
                                                 return null;
@@ -211,8 +217,22 @@ class _SignUpState extends State<SignUp> {
                                             decoration: InputDecoration(
                                                 disabledBorder:
                                                     InputBorder.none,
-                                                enabledBorder: InputBorder.none,
-                                                border: InputBorder.none,
+                                                isDense: true,
+                                                fillColor: Colors.grey.shade100,
+                                                filled: true,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  gapPadding: 0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide.none,
+                                                    gapPadding: 0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
                                                 errorStyle: TextStyle(
                                                     fontSize: 16,
                                                     fontWeight:
@@ -221,7 +241,8 @@ class _SignUpState extends State<SignUp> {
                                                 hintStyle: TextStyle(
                                                   fontSize: 16.5,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.white70,
+                                                  color: Colors.black
+                                                      .withOpacity(0.8),
                                                 )),
                                           ),
                                         ),
@@ -230,13 +251,13 @@ class _SignUpState extends State<SignUp> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 30.0),
+                                              horizontal: 20.0),
                                           child: TextFormField(
                                             style: TextStyle(
                                                 fontSize: 16,
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold),
-                                            cursorColor: Colors.white,
+                                            cursorColor: Colors.black,
                                             keyboardType:
                                                 TextInputType.emailAddress,
                                             validator: (email) {
@@ -260,17 +281,31 @@ class _SignUpState extends State<SignUp> {
                                             decoration: InputDecoration(
                                                 disabledBorder:
                                                     InputBorder.none,
-                                                enabledBorder: InputBorder.none,
-                                                border: InputBorder.none,
+                                                fillColor: Colors.grey.shade100,
+                                                filled: true,
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  gapPadding: 0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide.none,
+                                                    gapPadding: 0,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
                                                 errorStyle: TextStyle(
                                                     fontSize: 16,
                                                     fontWeight:
                                                         FontWeight.bold),
-                                                hintText: ' some@domian.com',
+                                                hintText: 'Enter your Email Id',
                                                 hintStyle: TextStyle(
                                                   fontSize: 16.5,
                                                   fontWeight: FontWeight.bold,
-                                                  color: Colors.white70,
+                                                  color: Colors.black
+                                                      .withOpacity(0.8),
                                                 )),
                                           ),
                                         ),
@@ -279,13 +314,13 @@ class _SignUpState extends State<SignUp> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                              horizontal: 30.0),
+                                              horizontal: 20.0),
                                           child: TextFormField(
                                             keyboardType:
                                                 TextInputType.visiblePassword,
                                             textAlign: TextAlign.left,
                                             textDirection: TextDirection.ltr,
-                                            cursorColor: Colors.white,
+                                            cursorColor: Colors.black,
                                             validator: (password) {
                                               bool passwordValid = RegExp(
                                                       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
@@ -309,14 +344,26 @@ class _SignUpState extends State<SignUp> {
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white,
+                                              color: Colors.black,
                                             ),
                                             decoration: InputDecoration(
+                                              fillColor: Colors.grey.shade100,
+                                              filled: true,
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide.none,
+                                                gapPadding: 0,
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
+                                                  gapPadding: 0,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6)),
                                               disabledBorder: InputBorder.none,
                                               errorStyle: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold),
-                                              enabledBorder: InputBorder.none,
                                               suffixIcon: IconButton(
                                                 icon: secure
                                                     ? Icon(Icons.lock_outline,
@@ -330,12 +377,12 @@ class _SignUpState extends State<SignUp> {
                                                   });
                                                 },
                                               ),
-                                              border: InputBorder.none,
-                                              hintText: ' Password',
+                                              hintText: 'Password',
                                               hintStyle: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white70,
+                                                color: Colors.black
+                                                    .withOpacity(0.8),
                                               ),
                                             ),
                                           ),
@@ -402,29 +449,19 @@ class _SignUpState extends State<SignUp> {
                                   Center(
                                     child: Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              border: Border(
-                                                  bottom: BorderSide(
-                                            color: Colors.white,
-                                            width: 1.0,
-                                          ))),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 3.0),
-                                            child: RichText(
-                                              text: TextSpan(
-                                                text: "Already have a account!",
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 3.0),
+                                          child: Text(
+                                            "Already have a account!",
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),
@@ -434,14 +471,12 @@ class _SignUpState extends State<SignUp> {
                                             _passwordController.clear();
                                             Navigator.of(context).pop();
                                           },
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: ' Login',
-                                              style: TextStyle(
-                                                fontSize: 17.5,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red.shade700,
-                                              ),
+                                          child: Text(
+                                            ' Login',
+                                            style: TextStyle(
+                                              fontSize: 17.5,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.red.shade700,
                                             ),
                                           ),
                                         ),
