@@ -18,7 +18,8 @@ dependencies:
   font_awesome_flutter: any # Font-Awesome icons
   google_fonts: any
   salomon_bottom_bar: ^3.0.0
-  flutter_phoenix: any
+  google_sign_in: ^5.1.1
+  flutter_vector_icons: ^1.0.0
   fluttertoast: any # Native Toast Plugin
   intl: any
   cached_network_image: any # To cache Network Images 
